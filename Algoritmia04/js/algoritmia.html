@@ -1,100 +1,180 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algoritmia</title>
-    
-    <style>
-        .container {
-            margin: 20px 0;
-            padding: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-        }
-        .problema-input {
-            width: 100%;
-            max-width: 500px;
-            padding: 8px;
-            margin: 5px 0;
-        }
-        .problema-button {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .problema-output {
-            background-color: #f4f4f4;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            white-space: pre-wrap;
-        }
-    </style>
+    <title>Ejemplo de Algoritmia</title>
+   <script src="algoritmia.js"></script>
 </head>
 <body>
 
-    <div class="container">
-        <h3>Dada una lista de palabras separadas por un espacio, invierte el orden de dichas palabras.</h3>
-        <div class="problema-content">
-            <input type="text" 
-                   class="problema-input"
-                   placeholder="Ingresa las palabras separadas por un espacio"
-                   id="p1-input">
-            
-            <button type="button" 
-                    class="problema-button"
-                    onclick="problema1()">
-                Invertir palabras
-            </button>
-            
-            <pre class="problema-output" id="p1-output">Esperando datos...</pre>
+    
+
+    <div class="container" >
+        <div class="problema-container" >
+            <h3 class="problema-title" >Problema 1</h3>
+            <h4>Dada una lista de palabras separadas 
+                por un espacio, invierte el orden de dichas
+                palabras. Las palabras solo pueden estar 
+                separadas por un espacio
+            </h4>
+            <div class="problema-content" >
+                <input type="text" class="problema-input"
+                placeholder="Ingresa las palabras separadas por
+                un espacio" id="p1-input" >
+                <button type="button" class="problema-button"
+                style="margin-top: 1rem;" onClick="problema1()" >Invertir</button>
+                <pre class="problema-output" id="p1-output" >
+                    Esperando respuesta ...
+                </pre>
+            </div>
         </div>
+
     </div>
 
-    <div class="container">
-        <h3>Dados vectores v1 y v2, encontrar el mínimo producto escalar (puedes reordenar los elementos).</h3>
-        <div class="problema-content">
-            <input type="text" 
-                   class="problema-input"
-                   placeholder="Vector 1 (ej: 1 3 5 2)"
-                   id="p2-v1">
-            
-            <input type="text" 
-                   class="problema-input"
-                   placeholder="Vector 2 (ej: 4 2 1 3)"
-                   id="p2-v2">
-            
-            <button type="button" 
-                    class="problema-button"
-                    onclick="problema2()">
-                Calcular producto escalar mínimo
-            </button>
-            
-            <pre class="problema-output" id="p2-output">Esperando datos...</pre>
+
+
+
+    <div class="container" >
+        <div class="problema-container" >
+            <h3 class="problema-title" >Problema 2</h3>
+            <h4>
+                Dados 2 vectores <em>v1=(x1, x2, x3, ... xN), 
+                    v2=(y1, y2, y3, ... yN)  
+                </em> y teniendo permitido permutar el order de los
+                elementos de dicho vector, encontrar el minimo producto
+                escalar entre ambos vectores.
+                <br>
+                (El producto escalar se forma de la siguiente manera:
+                <em>x1*y1 + x2*y2 + x3*y3 + ... + xN*yN</em>
+                )
+            </h4>
+            <div class="problema-content" >
+
+                <div class="tablas" style="width: 100%; 
+                display:flex; justify-content: center;" >
+                    <table class="problema-table" style="width: 40%;" >
+                        <thead>
+                            <tr>
+                                <th> <em>X</em> </th>
+                                <th> # </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>x1</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-x1" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>x2</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-x2" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>x3</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-x3" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>x4</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-x4" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>x5</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-x5" >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="problema-table" style="width: 40%;" >
+                        <thead>
+                            <tr>
+                                <th> <em>Y</em> </th>
+                                <th> # </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>y1</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-y1" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>y2</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-y2" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>y3</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-y3" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>y4</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-y4" >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>y5</td>
+                                <td>
+                                    <input type="number" class="problema-input" id="p2-y5" >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+
+                
+                <button type="button" class="problema-button"
+                style="margin-top: 1rem;" onClick="problema2()" >Calcular</button>
+                <pre class="problema-output" id="p2-output" >
+                    Esperando respuesta ...
+                </pre>
+            </div>
         </div>
+
     </div>
 
-    <div class="container">
-        <h3>Dada una lista de palabras separadas por coma, encuentra la palabra con más letras diferentes.</h3>
-        <div class="problema-content">
-            <input type="text" 
-                   class="problema-input"
-                   placeholder="Ingresa palabras separadas por coma"
-                   id="p3-input">
-            
-            <button type="button" 
-                    class="problema-button"
-                    onclick="problema3()">
-                Calcular palabra
-            </button>
-            
-            <pre class="problema-output" id="p3-output">Esperando datos...</pre>
+    <div class="container" >
+        <div class="problema-container" >
+            <h3 class="problema-title" >Problema 3</h3>
+            <h4>
+                Dada una lista de palabras, encontrar la palabra que mas 
+                número de caracteres unicos tenga. 
+                <br>
+                Considera solamente un alfabeto de A-Z en mayúsculas.
+                <br>
+                Las palabras ingresadas deberan de estar separadas por una coma,
+                no se aceptan espacios.
+                <br>
+                Ejemplo: CASA = 3 (c, a, s)  PERRO = 4 (p, e, r, o)
+            </h4>
+            <div class="problema-content" >
+                <input type="text" class="problema-input"
+                placeholder="Ingresa las palabras separadas por
+                una coma, no se aceptan espacios" id="p3-input" >
+                <button type="button" class="problema-button"
+                style="margin-top: 1rem;" onClick="problema3()" >Calcular</button>
+                <pre class="problema-output" id="p3-output" >
+                    Esperando respuesta ...
+                </pre>
+            </div>
         </div>
+
     </div>
-<script src="algoritmia.js"></script>
+    
 </body>
 </html>
