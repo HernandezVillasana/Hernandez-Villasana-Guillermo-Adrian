@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmia</title>
+    
+    <style>
+        .container {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .problema-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        .problema-button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .problema-output {
+            background-color: #f4f4f4;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Dada una lista de palabras separadas por un espacio, invierte el orden de dichas palabras.</h3>
+        <div class="problema-content">
+            <input type="text" 
+                   class="problema-input"
+                   placeholder="Ingresa las palabras separadas por un espacio"
+                   id="p1-input">
+            
+            <button type="button" 
+                    class="problema-button"
+                    onclick="problema1()">
+                Invertir palabras
+            </button>
+            
+            <pre class="problema-output" id="p1-output">Esperando datos...</pre>
+        </div>
+    </div>
+
+    <div class="container">
+        <h3>Dados vectores v1 y v2, encontrar el mínimo producto escalar (puedes reordenar los elementos).</h3>
+        <div class="problema-content">
+            <input type="text" 
+                   class="problema-input"
+                   placeholder="Vector 1 (ej: 1 3 5 2)"
+                   id="p2-v1">
+            
+            <input type="text" 
+                   class="problema-input"
+                   placeholder="Vector 2 (ej: 4 2 1 3)"
+                   id="p2-v2">
+            
+            <button type="button" 
+                    class="problema-button"
+                    onclick="problema2()">
+                Calcular producto escalar mínimo
+            </button>
+            
+            <pre class="problema-output" id="p2-output">Esperando datos...</pre>
+        </div>
+    </div>
+
+    <div class="container">
+        <h3>Dada una lista de palabras separadas por coma, encuentra la palabra con más letras diferentes.</h3>
+        <div class="problema-content">
+            <input type="text" 
+                   class="problema-input"
+                   placeholder="Ingresa palabras separadas por coma"
+                   id="p3-input">
+            
+            <button type="button" 
+                    class="problema-button"
+                    onclick="problema3()">
+                Calcular palabra
+            </button>
+            
+            <pre class="problema-output" id="p3-output">Esperando datos...</pre>
+        </div>
+    </div>
+<script src="algoritmia.js"></script>
+</body>
+</html>
