@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUDMVC</title>
+</head>
+
+<link rel="stylesheet" href="CSS/style.css">
+<script src="JS/app.js" defer></script>
+<body>
+ <header>
+    <h1>Sistema de compras </h1>
+    <p> Ejemplo de gestion de compras</p>
+    <nav class="tabs">
+        <button class="tabs active" onclick="cambiarSeccion('usuarios')">Usuarios</button>
+         <button class="tabs active" onclick="cambiarSeccion('productos')">Productos</button>
+          
+          <button class="tabs active" onclick="cambiarSeccion('compras')">Compras</button>
+       
+ </header>
+<section class="info-api">
+    <h3>Información de la API</h3>
+    <div class="api-status"></div>
+    <span id="api-metodo" class="badge">-</span>
+     <span id="api-url" class="api-url">-</span>
+      <span id="api-codigo" class="badge badge-natural">-</span>
+</section>
+<div id="seccion-usuarios" class="seccion">
+    <section class="formulario-usuarios">  
+
+    <h2>Gestión de Usuarios</h2>
+        <form id="form-usuarios" novalidate></form>
+        <input type="hidden" id="usuario-id">
+        <div class="campos-grid">  
+            <label for="usuario-nombre">Nombre:</label>
+            <input type="text" id="usuario-nombre" placeholder="Nombre" maxlength="100" required>
+           <span class="error-message" id="error-nombre"></span>
+         </div>
+         <div class="campos">  
+            <label for="usuario-email">Email:</label>
+            <input type="email" id="usuario-email" placeholder="Email" maxlength="100" required>
+           <span class="error-message" id="error-email"></span>
+         </div>
+         <div class="botones">  
+            <button type="submit" id="btn-guardar-usuario">Guardar</button>
+            <button type="button" id="btn-cancelar-usuario" class="btn-secundario" style="display: none;">Cancelar</button>
+            <section class="tabla-usuarios">
+                <h3>Lista de Usuarios <span id="contador-usuarios" class="badge badge-neutral">  </span></h3>
+                <p id="error-usuarios" class="error-message">Cargando...</p>
+                <table id="tabla-usuarios" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-tabla-usuarios">
+                    </tbody>
+               
+
+            </section>
+         </div>
+    </section>
+
+</div>
