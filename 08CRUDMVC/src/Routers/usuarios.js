@@ -30,6 +30,7 @@ router.get('/', async (req, res) => {
             data: usuarios,
             count: usuarios.length,
             
+            
 
         });
     } catch (error) {
@@ -38,7 +39,10 @@ router.get('/', async (req, res) => {
             status: 'error',
             message: 'Error interno del servidor'
         });
+        
     }   
+    
 });
+
 //vamos a mostrar un usuario por id
 module.exports = router;

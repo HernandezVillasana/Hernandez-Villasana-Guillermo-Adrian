@@ -14,7 +14,7 @@ app.use((req, res, next) => {
     next();
 });
 //debemos definir las rutas de los archivos 
-app.use(express.static(path.join(__dirname,'--'  ,'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 //vamos a manejar las rutas de los recursos que se van a obtener por medio de las peticiones o respuestas
 //pueden existir rutas como /api/usuarios, /api/productos, etc, cada una de estas rutas va a tener un controlador que se va a encargar de procesar la informacion y enviar una respuesta
 //router.get('/')
@@ -22,12 +22,12 @@ app.use(express.static(path.join(__dirname,'--'  ,'public')));
 //router.post('/')
 //router.get('/:id')
 
-const usuariosRouter = require('./routes/usuarios');
+const usuariosRouter = require('./Routers/usuarios');
 app.use('/api/usuarios', usuariosRouter);
-const productosRouter = require('./routes/productos');
-const comprasRouter = require('./routes/compras');
-app.use('/api/productos', productosRouter);
-app.use('/api/compras', comprasRouter);
+//const productosRouter = require('./Routers/productos');
+//const comprasRouter = require('./Routers/compras');
+//app.use('/api/productos', productosRouter);
+//app.use('/api/compras', comprasRouter);
 //vamos a documentar cada endpoint 
 app.get('/api', (req, res) => {
     res.json({
@@ -61,14 +61,8 @@ app.get('/api', (req, res) => {
     });
 });
 //vamos a crear una funcion para rutas inexistentes.
-app.use('/api*', (req, res) => {
-    res.status(404).json({
-        status: 'error',
-        message: 'Ruta no encontrada'
-    });
-    res.send('Errores.html');
-});
-//necesitamos un manejador de errores
+
+
 app.use((err, req, res, next) => {
     console.log('error no manejado', err.message);
     res.status(500).json({
@@ -76,6 +70,31 @@ app.use((err, req, res, next) => {
         message: 'Error interno del servidor'
     });
 });
+app.get('/test', (req, res) => {
+    res.json({ ok: true });
+});
 app.listen(PORT, () => {
     console.log('Servidor inicializado ');
+});
+
+
+const pilotosRouter = require('./Routers/pilotos');
+const campeonesRouter = require('./Routers/campeones');
+const escuderiasRouter = require('./Routers/escuderias');
+
+app.use('/api/pilotos', pilotosRouter);
+app.use('/api/campeones', campeonesRouter);
+app.use('/api/escuderias', escuderiasRouter);
+
+// documentación API
+app.get('/api', (req, res) => {
+   
+});
+
+// 404 AL FINAL
+app.use('/api', (req, res) => {
+    res.status(404).json({
+        status: 'error',
+        message: 'Ruta no encontrada'
+    });
 });

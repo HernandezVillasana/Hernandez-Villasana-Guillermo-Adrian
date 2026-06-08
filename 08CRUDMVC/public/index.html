@@ -19,7 +19,69 @@
           <button class="tabs active" onclick="cambiarSeccion('compras')">Compras</button>
        
  </header>
+
+ <button onclick="cambiarSeccion('pilotos')">Pilotos</button>
+<button onclick="cambiarSeccion('campeones')">Campeones</button>
+<button onclick="cambiarSeccion('escuderias')">Escuderías</button>
+<div id="seccion-pilotos" class="seccion" style="display:none">
+
+    <h2>Pilotos</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Equipo</th>
+                <th>País</th>
+                <th>Número</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody-pilotos"></tbody>
+    </table>
+
+</div>
+<div id="seccion-campeones" class="seccion" style="display:none">
+
+    <h2>Campeones</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Año</th>
+                <th>Piloto</th>
+                <th>Escudería</th>
+                <th>Puntos</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody-campeones"></tbody>
+    </table>
+
+</div>
+<div id="seccion-escuderias" class="seccion" style="display:none">
+
+    <h2>Escuderías</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>País</th>
+                <th>Motor</th>
+                <th>Títulos</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody-escuderias"></tbody>
+    </table>
+
+</div>
 <section class="info-api">
+    
     <h3>Información de la API</h3>
     <div class="api-status"></div>
     <span id="api-metodo" class="badge">-</span>
@@ -29,15 +91,15 @@
 <div id="seccion-usuarios" class="seccion">
     <section class="formulario-usuarios">  
 
-    <h2>Gestión de Usuarios</h2>
-        <form id="form-usuarios" novalidate></form>
+    <h3>Gestión de Usuarios</h3>
+        <form id="form-usuarios" novalidate>
         <input type="hidden" id="usuario-id">
-        <div class="campos-grid">  
+        <div class="campo">  
             <label for="usuario-nombre">Nombre:</label>
             <input type="text" id="usuario-nombre" placeholder="Nombre" maxlength="100" required>
            <span class="error-message" id="error-nombre"></span>
          </div>
-         <div class="campos">  
+         <div class="campo">  
             <label for="usuario-email">Email:</label>
             <input type="email" id="usuario-email" placeholder="Email" maxlength="100" required>
            <span class="error-message" id="error-email"></span>
@@ -48,7 +110,7 @@
             <section class="tabla-usuarios">
                 <h3>Lista de Usuarios <span id="contador-usuarios" class="badge badge-neutral">  </span></h3>
                 <p id="error-usuarios" class="error-message">Cargando...</p>
-                <table id="tabla-usuarios" style="display: none;">
+                <table id="table-usuarios" style="display: none;">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -57,7 +119,7 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpo-tabla-usuarios">
+                    <tbody id="tbody-usuarios">
                     </tbody>
                
 
