@@ -1,10 +1,195 @@
 /*
 Vamos atener unsa estructura mrdiante la cual implementamos el modelo vista controlqdor, en donde a partir del uso de una API podemos consumir los elemtos por oa¿parte del front para obtener sus datos como peticion o como respuest adel back
 */
+console.log("APP CARGADA");
 const apiMetodo = document.getElementById('api-metodo');
 const apiURL = document.getElementById('api-url');
 const apiCodigo = document.getElementById('api-codigo');
 const notificacionDIV = document.getElementById('notificacion');
+// Datos base
+const F1_PILOTOS = {
+  "Max Verstappen": {
+    equipo: "Red Bull",
+    pais: "Países Bajos",
+    numero: 1
+  },
+  "Sergio Pérez": {
+    equipo: "Red Bull",
+    pais: "México",
+    numero: 11
+  },
+  "Lewis Hamilton": {
+    equipo: "Ferrari",
+    pais: "Reino Unido",
+    numero: 44
+  },
+  "Charles Leclerc": {
+    equipo: "Ferrari",
+    pais: "Mónaco",
+    numero: 16
+  },
+  "Carlos Sainz": {
+    equipo: "Williams",
+    pais: "España",
+    numero: 55
+  },
+  "Lando Norris": {
+    equipo: "McLaren",
+    pais: "Reino Unido",
+    numero: 4
+  },
+  "Oscar Piastri": {
+    equipo: "McLaren",
+    pais: "Australia",
+    numero: 81
+  },
+  "George Russell": {
+    equipo: "Mercedes",
+    pais: "Reino Unido",
+    numero: 63
+  },
+  "Lewis Hamilton (Mercedes)": {
+    equipo: "Mercedes",
+    pais: "Reino Unido",
+    numero: 44
+  },
+  "Fernando Alonso": {
+    equipo: "Aston Martin",
+    pais: "España",
+    numero: 14
+  },
+  "Lance Stroll": {
+    equipo: "Aston Martin",
+    pais: "Canadá",
+    numero: 18
+  },
+  "Pierre Gasly": {
+    equipo: "Alpine",
+    pais: "Francia",
+    numero: 10
+  },
+  "Esteban Ocon": {
+    equipo: "Haas",
+    pais: "Francia",
+    numero: 31
+  },
+  "Nico Hülkenberg": {
+    equipo: "Haas",
+    pais: "Alemania",
+    numero: 27
+  },
+  "Yuki Tsunoda": {
+    equipo: "Red Bull (RB / Racing Bulls)",
+    pais: "Japón",
+    numero: 22
+  },
+  "Alexander Albon": {
+    equipo: "Williams",
+    pais: "Tailandia",
+    numero: 23
+  },
+  "Valtteri Bottas": {
+    equipo: "Kick Sauber",
+    pais: "Finlandia",
+    numero: 77
+  },
+  "Zhou Guanyu": {
+    equipo: "Kick Sauber",
+    pais: "China",
+    numero: 24
+  }
+};
+const CAMPEONES = {
+  2010: { piloto: "Sebastian Vettel", escuderia: "Red Bull", puntos: 256 },
+  2011: { piloto: "Sebastian Vettel", escuderia: "Red Bull", puntos: 392 },
+  2012: { piloto: "Sebastian Vettel", escuderia: "Red Bull", puntos: 281 },
+  2013: { piloto: "Sebastian Vettel", escuderia: "Red Bull", puntos: 397 },
+  2014: { piloto: "Lewis Hamilton", escuderia: "Mercedes", puntos: 384 },
+  2015: { piloto: "Lewis Hamilton", escuderia: "Mercedes", puntos: 381 },
+  2016: { piloto: "Nico Rosberg", escuderia: "Mercedes", puntos: 385 },
+  2017: { piloto: "Lewis Hamilton", escuderia: "Mercedes", puntos: 363 },
+  2018: { piloto: "Lewis Hamilton", escuderia: "Mercedes", puntos: 408 },
+  2019: { piloto: "Lewis Hamilton", escuderia: "Mercedes", puntos: 413 },
+  2020: { piloto: "Lewis Hamilton", escuderia: "Mercedes", puntos: 347 },
+  2021: { piloto: "Max Verstappen", escuderia: "Red Bull", puntos: 395 },
+  2022: { piloto: "Max Verstappen", escuderia: "Red Bull", puntos: 454 },
+  2023: { piloto: "Max Verstappen", escuderia: "Red Bull", puntos: 575 },
+  2024: { piloto: "Max Verstappen", escuderia: "Red Bull", puntos: 575 },
+  2025: { piloto: "Max Verstappen", escuderia: "Red Bull", puntos: 0 }
+};
+const ESCUDERIAS = {
+  "Red Bull": {
+    pais: "Austria",
+    motor: "Honda/RBPT",
+    titulos: 6
+  },
+  "Mercedes": {
+    pais: "Alemania",
+    motor: "Mercedes",
+    titulos: 8
+  },
+  "Ferrari": {
+    pais: "Italia",
+    motor: "Ferrari",
+    titulos: 16
+  },
+  "McLaren": {
+    pais: "Reino Unido",
+    motor: "Mercedes",
+    titulos: 8
+  },
+  "Alpine": {
+    pais: "Francia",
+    motor: "Renault",
+    titulos: 2
+  },
+  "Williams": {
+    pais: "Reino Unido",
+    motor: "Mercedes",
+    titulos: 9
+  },
+  "Haas": {
+    pais: "Estados Unidos",
+    motor: "Ferrari",
+    titulos: 0
+  }
+};
+// Arrays generados automáticamente
+const PILOTOS = Object.keys(F1_PILOTOS);
+
+const EQUIPOS = [...new Set(
+    Object.values(F1_PILOTOS).map(p => p.equipo)
+)];
+
+const PAISES = [...new Set(
+    Object.values(F1_PILOTOS).map(p => p.pais)
+)];
+function cargarSelectsPilotos() {
+
+    const nombre = document.getElementById('piloto-nombre');
+    const equipo = document.getElementById('piloto-equipo');
+    const pais = document.getElementById('piloto-pais');
+
+    // limpiar
+    nombre.innerHTML = '';
+    equipo.innerHTML = '';
+    pais.innerHTML = '';
+
+    // pilotos
+    PILOTOS.forEach(p => {
+        nombre.innerHTML += `<option value="${p}">${p}</option>`;
+    });
+
+    // equipos
+    EQUIPOS.forEach(e => {
+        equipo.innerHTML += `<option value="${e}">${e}</option>`;
+    });
+
+    // países
+    PAISES.forEach(p => {
+        pais.innerHTML += `<option value="${p}">${p}</option>`;
+    });
+}
 //vamos a crear la api fetch para poder conectarnos
 async function FetchAPI(url, opciones = {}) {
     const method = opciones.method || 'GET';
@@ -24,6 +209,7 @@ async function FetchAPI(url, opciones = {}) {
     }
     return datos;
 }
+
 catch (error) {
     if ( apiCodigo.textContent === 'Cargando...') {
         apiCodigo.textContent = 'Error';
@@ -32,6 +218,12 @@ catch (error) {
     throw error;
 }
 }
+function mostrarError(msg) {
+    document.getElementById("mensaje-error").textContent = msg;
+}
+
+ 
+
 //Todos los datos del formulario de usuarios
 const formUsuarios = document.getElementById('form-usuarios');
 const inputUsuarioId = document.getElementById('usuario-id');
@@ -100,6 +292,7 @@ function cambiarSeccion(seccion) {
     if (seccion === 'escuderias') cargarEscuderias();
 }
 async function cargarPilotos() {
+   
     const res = await FetchAPI('/api/pilotos');
 
     const tbody = document.getElementById('tbody-pilotos');
@@ -113,6 +306,9 @@ async function cargarPilotos() {
                 <td>${p.equipo}</td>
                 <td>${p.pais}</td>
                 <td>${p.numero}</td>
+                <td>
+    <button onclick="eliminarPiloto(${p.id})">Eliminar</button>
+</td>
             </tr>
         `;
     });
@@ -131,6 +327,9 @@ async function cargarCampeones() {
                 <td>${c.piloto}</td>
                 <td>${c.escuderia}</td>
                 <td>${c.puntos}</td>
+                <td>
+  <button onclick="eliminarCampeon(${c.id})">Eliminar</button>
+</td>
             </tr>
         `;
     });
@@ -149,39 +348,49 @@ async function cargarEscuderias() {
                 <td>${e.pais}</td>
                 <td>${e.motor}</td>
                 <td>${e.titulos}</td>
+                <td>
+    <button onclick="eliminarEscuderia(${e.id})">Eliminar</button>
+</td>
             </tr>
         `;
     });
 }
 async function guardarEscuderia() {
 
-    const id = document.getElementById('escuderia-id').value;
+    const nombre = document.getElementById('escuderia-nombre').value;
+    const pais = document.getElementById('escuderia-pais').value;
+    const motor = document.getElementById('escuderia-motor').value;
+    const titulos = Number(document.getElementById('escuderia-titulos').value);
+
+    const real = ESCUDERIAS[nombre];
+
+    if (!real) {
+        alert("Escudería no registrada en sistema");
+        return;
+    }
+
+    if (real.motor !== motor) {
+        alert(`Error: ${nombre} usa motor ${real.motor}`);
+        return;
+    }
+
+    if (real.titulos !== titulos) {
+        alert(`Error: ${nombre} tiene ${real.titulos} títulos`);
+        return;
+    }
 
     const datos = {
-        nombre: document.getElementById('escuderia-nombre').value,
-        pais: document.getElementById('escuderia-pais').value,
-        motor: document.getElementById('escuderia-motor').value,
-        titulos: document.getElementById('escuderia-titulos').value
+        nombre,
+        pais,
+        motor,
+        titulos
     };
 
-    if (id) {
-        await FetchAPI(`/api/escuderias/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datos)
-        });
-    } else {
-        await FetchAPI(`/api/escuderias`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datos)
-        });
-    }
-    document.getElementById('escuderia-id').value = '';
-document.getElementById('escuderia-nombre').value = '';
-document.getElementById('escuderia-pais').value = '';
-document.getElementById('escuderia-motor').value = '';
-document.getElementById('escuderia-titulos').value = '';
+    await FetchAPI('/api/escuderias', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datos)
+    });
 
     cargarEscuderias();
 }
@@ -199,34 +408,46 @@ async function editarEscuderia(id) {
 }
 async function guardarCampeon() {
 
-    const id = document.getElementById('campeon-id').value;
+    const anio = Number(document.getElementById('campeon-anio').value);
+    const piloto = document.getElementById('campeon-piloto').value;
+    const escuderia = document.getElementById('campeon-escuderia').value;
+    const puntos = Number(document.getElementById('campeon-puntos').value);
 
-    const datos = {
-        anio: document.getElementById('campeon-anio').value,
-        piloto: document.getElementById('campeon-piloto').value,
-        escuderia: document.getElementById('campeon-escuderia').value,
-        puntos: document.getElementById('campeon-puntos').value
-    };
+    const real = CAMPEONES[anio];
 
-    if (id) {
-        await FetchAPI(`/api/campeones/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datos)
-        });
-    } else {
-        await FetchAPI(`/api/campeones`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(datos)
-        });
+    console.log("INPUT:", { anio, piloto, escuderia, puntos });
+    console.log("REAL:", real);
+
+    if (!real) {
+        console.log("ERROR: año no existe");
+        alert("Año fuera de rango");
+        return;
     }
-    document.getElementById('campeon-id').value = '';
-document.getElementById('campeon-anio').value = '';
-document.getElementById('campeon-piloto').value = '';
-document.getElementById('campeon-escuderia').value = '';
-document.getElementById('campeon-puntos').value = '';
 
+    if (real.piloto !== piloto) {
+        console.log("ERROR: piloto no coincide");
+        alert(`Error: en ${anio} el campeón fue ${real.piloto}`);
+        return;
+    }
+
+    if (real.escuderia !== escuderia) {
+        console.log("ERROR: escudería no coincide");
+        alert(`Error: en ${anio} la escudería fue ${real.escuderia}`);
+        return;
+    }
+
+    if (real.puntos !== puntos) {
+        console.log("ERROR: puntos no coinciden");
+        alert(`Error: puntos correctos ${real.puntos}`);
+        return;
+    }
+
+    await FetchAPI('/api/campeones', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ anio, piloto, escuderia, puntos })
+    });
+const norm = (t) => t.trim().toLowerCase();
     cargarCampeones();
 }
 async function editarCampeon(id) {
@@ -252,49 +473,94 @@ async function editarPiloto(id) {
     document.getElementById('piloto-pais').value = piloto.pais;
     document.getElementById('piloto-numero').value = piloto.numero;
 }
+
 async function guardarPiloto() {
 
-    const id = document.getElementById('piloto-id').value;
+    const nombre = document.getElementById('piloto-nombre').value;
+    const equipo = document.getElementById('piloto-equipo').value;
+    const pais = document.getElementById('piloto-pais').value;
+    const numero = Number(document.getElementById('piloto-numero').value);
 
-    const datos = {
-        nombre: document.getElementById('piloto-nombre').value,
-        equipo: document.getElementById('piloto-equipo').value,
-        pais: document.getElementById('piloto-pais').value,
-        numero: document.getElementById('piloto-numero').value
-    };
+    const real = F1_PILOTOS[nombre];
 
-    if (id) {
-       
-        await FetchAPI(`/api/pilotos/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datos)
-        });
-
-        alert('Piloto actualizado');
-
-    } else {
-     
-        await FetchAPI(`/api/pilotos`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datos)
-        });
-
-        alert('Piloto creado');
+    if (!real) {
+        alert("Piloto inválido");
+        return;
     }
 
-    // refrescar tabla
-    cargarPilotos();
+    if (real.equipo !== equipo) {
+        alert(`Error: ${nombre} no pertenece a ${equipo}`);
+        return;
+    }
 
-    // limpiar formulario
-    document.getElementById('piloto-id').value = '';
-    document.getElementById('piloto-nombre').value = '';
-    document.getElementById('piloto-equipo').value = '';
-    document.getElementById('piloto-pais').value = '';
-    document.getElementById('piloto-numero').value = '';
+    if (real.pais !== pais) {
+        alert(`Error: ${nombre} no es de ${pais}`);
+        return;
+    }
+
+    if (real.numero !== numero) {
+        alert(`Error: número incorrecto (debería ser ${real.numero})`);
+        return;
+    }
+
+    await FetchAPI('/api/pilotos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nombre,
+            equipo,
+            pais,
+            numero
+        })
+    });
+
+    cargarPilotos();
 }
+async function eliminarCampeon(id) {
+    const confirmacion = confirm('¿Seguro que quieres eliminar este campeón?');
+
+    if (!confirmacion) return;
+
+    try {
+        await FetchAPI(`/api/campeones/${id}`, {
+            method: 'DELETE'
+        });
+
+        await cargarCampeones();
+
+    } catch (error) {
+        console.error('Error al eliminar:', error);
+    }
+}
+async function eliminarPiloto(id) {
+    const confirmacion = confirm('¿Seguro que quieres eliminar este piloto?');
+    if (!confirmacion) return;
+
+    await FetchAPI(`/api/pilotos/${id}`, {
+        method: 'DELETE'
+    });
+
+    cargarPilotos();
+}
+async function eliminarEscuderia(id) {
+    const confirmacion = confirm('¿Seguro que quieres eliminar esta escudería?');
+    if (!confirmacion) return;
+
+    await FetchAPI(`/api/escuderias/${id}`, {
+        method: 'DELETE'
+    });
+
+    cargarEscuderias();
+}
+cargarSelectsPilotos();
+
+    const btnGuardarPiloto = document.getElementById("btn-guardar-piloto");
+
+if (btnGuardarPiloto) {
+    btnGuardarPiloto.addEventListener("click", guardarPiloto);
+}
+
+
+    window.guardarPiloto = guardarPiloto;

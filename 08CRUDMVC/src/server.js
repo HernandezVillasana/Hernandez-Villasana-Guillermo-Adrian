@@ -73,9 +73,7 @@ app.use((err, req, res, next) => {
 app.get('/test', (req, res) => {
     res.json({ ok: true });
 });
-app.listen(PORT, () => {
-    console.log('Servidor inicializado ');
-});
+
 
 
 const pilotosRouter = require('./Routers/pilotos');
@@ -97,4 +95,7 @@ app.use('/api', (req, res) => {
         status: 'error',
         message: 'Ruta no encontrada'
     });
+});
+app.listen(PORT, () => {
+    console.log('Servidor inicializado ');
 });

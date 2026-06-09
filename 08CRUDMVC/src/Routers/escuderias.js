@@ -38,5 +38,19 @@ router.put('/:id', async (req, res) => {
 
     res.json({ status: 'success', message: 'Escudería actualizada' });
 });
+// DELETE ESCUDERIA
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    await bd.execute(
+        'DELETE FROM escuderias WHERE id=?',
+        [id]
+    );
+
+    res.json({
+        status: 'success',
+        message: 'Escudería eliminada'
+    });
+});
 
 module.exports = router;

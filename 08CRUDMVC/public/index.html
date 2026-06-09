@@ -24,9 +24,15 @@
 <button onclick="cambiarSeccion('campeones')">Campeones</button>
 <button onclick="cambiarSeccion('escuderias')">Escuderías</button>
 <div id="seccion-pilotos" class="seccion" style="display:none">
- <input type="hidden" id="piloto-id"> <input type="text" id="piloto-nombre" placeholder="Nombre"> <input type="text" id="piloto-equipo" placeholder="Equipo"> <input type="text" id="piloto-pais" placeholder="País"> <input type="number" id="piloto-numero" placeholder="Número"> 
- <button onclick="guardarPiloto()">Guardar</button>
     <h2>Pilotos</h2>
+<select id="piloto-nombre"> 
+</select>
+<select id="piloto-equipo"> </select>
+<select id="piloto-pais"></select>
+<input type="number" id="piloto-numero">
+<button id="btn-guardar-piloto" type="button">Guardar</button>
+ 
+    <div id="mensaje-error" style="color:red;"></div>
 
     <table border="1">
         <thead>
