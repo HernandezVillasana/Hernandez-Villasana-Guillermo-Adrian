@@ -2,26 +2,41 @@ const express = require('express');
 const router = express.Router();
 const bd = require('../DB/databases');
 
+// GET
 router.get('/', async (req, res) => {
-    try {
-        const [escuderias] = await bd.execute(
-            'SELECT * FROM escuderias ORDER BY nombre ASC'
-        );
+    const [escuderias] = await bd.execute(
+        'SELECT * FROM escuderias ORDER BY nombre ASC'
+    );
 
-        res.json({
-            status: 'success',
-            data: escuderias,
-            count: escuderias.length
-        });
+    res.json({
+        status: 'success',
+        data: escuderias
+    });
+});
 
-    } catch (error) {
-        console.error('Error al obtener escuderias:', error.message);
+// POST (CREAR)
+router.post('/', async (req, res) => {
+    const { nombre, pais, motor, titulos } = req.body;
 
-        res.status(500).json({
-            status: 'error',
-            message: error.message
-        });
-    }
+    await bd.execute(
+        'INSERT INTO escuderias (nombre, pais, motor, titulos) VALUES (?, ?, ?, ?)',
+        [nombre, pais, motor, titulos]
+    );
+
+    res.json({ status: 'success', message: 'Escudería creada' });
+});
+
+// PUT (EDITAR)
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { nombre, pais, motor, titulos } = req.body;
+
+    await bd.execute(
+        'UPDATE escuderias SET nombre=?, pais=?, motor=?, titulos=? WHERE id=?',
+        [nombre, pais, motor, titulos, id]
+    );
+
+    res.json({ status: 'success', message: 'Escudería actualizada' });
 });
 
 module.exports = router;

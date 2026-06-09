@@ -153,3 +153,148 @@ async function cargarEscuderias() {
         `;
     });
 }
+async function guardarEscuderia() {
+
+    const id = document.getElementById('escuderia-id').value;
+
+    const datos = {
+        nombre: document.getElementById('escuderia-nombre').value,
+        pais: document.getElementById('escuderia-pais').value,
+        motor: document.getElementById('escuderia-motor').value,
+        titulos: document.getElementById('escuderia-titulos').value
+    };
+
+    if (id) {
+        await FetchAPI(`/api/escuderias/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+    } else {
+        await FetchAPI(`/api/escuderias`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+    }
+    document.getElementById('escuderia-id').value = '';
+document.getElementById('escuderia-nombre').value = '';
+document.getElementById('escuderia-pais').value = '';
+document.getElementById('escuderia-motor').value = '';
+document.getElementById('escuderia-titulos').value = '';
+
+    cargarEscuderias();
+}
+
+async function editarEscuderia(id) {
+
+    const res = await FetchAPI('/api/escuderias');
+    const escuderia = res.data.find(e => e.id == id);
+
+    document.getElementById('escuderia-id').value = escuderia.id;
+    document.getElementById('escuderia-nombre').value = escuderia.nombre;
+    document.getElementById('escuderia-pais').value = escuderia.pais;
+    document.getElementById('escuderia-motor').value = escuderia.motor;
+    document.getElementById('escuderia-titulos').value = escuderia.titulos;
+}
+async function guardarCampeon() {
+
+    const id = document.getElementById('campeon-id').value;
+
+    const datos = {
+        anio: document.getElementById('campeon-anio').value,
+        piloto: document.getElementById('campeon-piloto').value,
+        escuderia: document.getElementById('campeon-escuderia').value,
+        puntos: document.getElementById('campeon-puntos').value
+    };
+
+    if (id) {
+        await FetchAPI(`/api/campeones/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+    } else {
+        await FetchAPI(`/api/campeones`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+    }
+    document.getElementById('campeon-id').value = '';
+document.getElementById('campeon-anio').value = '';
+document.getElementById('campeon-piloto').value = '';
+document.getElementById('campeon-escuderia').value = '';
+document.getElementById('campeon-puntos').value = '';
+
+    cargarCampeones();
+}
+async function editarCampeon(id) {
+
+    const res = await FetchAPI('/api/campeones');
+    const campeon = res.data.find(c => c.id == id);
+
+    document.getElementById('campeon-id').value = campeon.id;
+    document.getElementById('campeon-anio').value = campeon.anio;
+    document.getElementById('campeon-piloto').value = campeon.piloto;
+    document.getElementById('campeon-escuderia').value = campeon.escuderia;
+    document.getElementById('campeon-puntos').value = campeon.puntos;
+}
+async function editarPiloto(id) {
+
+    const res = await FetchAPI('/api/pilotos');
+
+    const piloto = res.data.find(p => p.id == id);
+
+    document.getElementById('piloto-id').value = piloto.id;
+    document.getElementById('piloto-nombre').value = piloto.nombre;
+    document.getElementById('piloto-equipo').value = piloto.equipo;
+    document.getElementById('piloto-pais').value = piloto.pais;
+    document.getElementById('piloto-numero').value = piloto.numero;
+}
+async function guardarPiloto() {
+
+    const id = document.getElementById('piloto-id').value;
+
+    const datos = {
+        nombre: document.getElementById('piloto-nombre').value,
+        equipo: document.getElementById('piloto-equipo').value,
+        pais: document.getElementById('piloto-pais').value,
+        numero: document.getElementById('piloto-numero').value
+    };
+
+    if (id) {
+       
+        await FetchAPI(`/api/pilotos/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        });
+
+        alert('Piloto actualizado');
+
+    } else {
+     
+        await FetchAPI(`/api/pilotos`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        });
+
+        alert('Piloto creado');
+    }
+
+    // refrescar tabla
+    cargarPilotos();
+
+    // limpiar formulario
+    document.getElementById('piloto-id').value = '';
+    document.getElementById('piloto-nombre').value = '';
+    document.getElementById('piloto-equipo').value = '';
+    document.getElementById('piloto-pais').value = '';
+    document.getElementById('piloto-numero').value = '';
+}

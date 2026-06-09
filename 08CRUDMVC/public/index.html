@@ -24,7 +24,8 @@
 <button onclick="cambiarSeccion('campeones')">Campeones</button>
 <button onclick="cambiarSeccion('escuderias')">Escuderías</button>
 <div id="seccion-pilotos" class="seccion" style="display:none">
-
+ <input type="hidden" id="piloto-id"> <input type="text" id="piloto-nombre" placeholder="Nombre"> <input type="text" id="piloto-equipo" placeholder="Equipo"> <input type="text" id="piloto-pais" placeholder="País"> <input type="number" id="piloto-numero" placeholder="Número"> 
+ <button onclick="guardarPiloto()">Guardar</button>
     <h2>Pilotos</h2>
 
     <table border="1">
@@ -45,6 +46,14 @@
 <div id="seccion-campeones" class="seccion" style="display:none">
 
     <h2>Campeones</h2>
+    <input type="hidden" id="campeon-id">
+
+    <input type="number" id="campeon-anio" placeholder="Año">
+    <input type="text" id="campeon-piloto" placeholder="Piloto">
+    <input type="text" id="campeon-escuderia" placeholder="Escudería">
+    <input type="number" id="campeon-puntos" placeholder="Puntos">
+
+    <button onclick="guardarCampeon()">Guardar</button>
 
     <table border="1">
         <thead>
@@ -64,7 +73,19 @@
 <div id="seccion-escuderias" class="seccion" style="display:none">
 
     <h2>Escuderías</h2>
+<input type="hidden" id="escuderia-id">
 
+<input type="text" id="escuderia-nombre" placeholder="Nombre">
+
+<input type="text" id="escuderia-pais" placeholder="País">
+
+<input type="text" id="escuderia-motor" placeholder="Motor">
+
+<input type="number" id="escuderia-titulos" placeholder="Títulos">
+
+<button onclick="guardarEscuderia()">
+    Guardar
+</button>
     <table border="1">
         <thead>
             <tr>
