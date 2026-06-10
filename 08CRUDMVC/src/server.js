@@ -84,12 +84,12 @@ app.use('/api/pilotos', pilotosRouter);
 app.use('/api/campeones', campeonesRouter);
 app.use('/api/escuderias', escuderiasRouter);
 
-// documentación API
+
 app.get('/api', (req, res) => {
    
 });
 
-// 404 AL FINAL
+
 app.use('/api', (req, res) => {
     res.status(404).json({
         status: 'error',

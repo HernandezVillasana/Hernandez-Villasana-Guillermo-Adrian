@@ -1,56 +1,136 @@
+
 const express = require('express');
 const router = express.Router();
 const bd = require('../DB/databases');
 
-// GET
 router.get('/', async (req, res) => {
-    const [escuderias] = await bd.execute(
-        'SELECT * FROM escuderias ORDER BY nombre ASC'
-    );
+    try {
 
-    res.json({
-        status: 'success',
-        data: escuderias
-    });
+        const [escuderias] = await bd.execute(
+            'SELECT * FROM escuderias ORDER BY nombre ASC'
+        );
+
+        res.json({
+            status: 'success',
+            data: escuderias
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
+    }
 });
 
-// POST (CREAR)
+router.get('/:id', async (req, res) => {
+    try {
+
+        const [rows] = await bd.execute(
+            'SELECT * FROM escuderias WHERE id=?',
+            [req.params.id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Escudería no encontrada'
+            });
+        }
+
+        res.json(rows[0]);
+
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
+    }
+});
+
 router.post('/', async (req, res) => {
-    const { nombre, pais, motor, titulos } = req.body;
+    try {
 
-    await bd.execute(
-        'INSERT INTO escuderias (nombre, pais, motor, titulos) VALUES (?, ?, ?, ?)',
-        [nombre, pais, motor, titulos]
-    );
+        const {
+            nombre,
+            pais,
+            motor,
+            titulos
+        } = req.body;
 
-    res.json({ status: 'success', message: 'Escudería creada' });
+        await bd.execute(
+            'INSERT INTO escuderias (nombre, pais, motor, titulos) VALUES (?, ?, ?, ?)',
+            [nombre, pais, motor, titulos]
+        );
+
+        res.json({
+            status: 'success',
+            message: 'Escudería creada'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
+    }
 });
 
-// PUT (EDITAR)
 router.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { nombre, pais, motor, titulos } = req.body;
+    try {
 
-    await bd.execute(
-        'UPDATE escuderias SET nombre=?, pais=?, motor=?, titulos=? WHERE id=?',
-        [nombre, pais, motor, titulos, id]
-    );
+        const {
+            nombre,
+            pais,
+            motor,
+            titulos
+        } = req.body;
 
-    res.json({ status: 'success', message: 'Escudería actualizada' });
+        await bd.execute(
+            `UPDATE escuderias
+             SET nombre=?, pais=?, motor=?, titulos=?
+             WHERE id=?`,
+            [
+                nombre,
+                pais,
+                motor,
+                titulos,
+                req.params.id
+            ]
+        );
+
+        res.json({
+            status: 'success',
+            message: 'Escudería actualizada'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
+    }
 });
-// DELETE ESCUDERIA
+
 router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
+    try {
 
-    await bd.execute(
-        'DELETE FROM escuderias WHERE id=?',
-        [id]
-    );
+        await bd.execute(
+            'DELETE FROM escuderias WHERE id=?',
+            [req.params.id]
+        );
 
-    res.json({
-        status: 'success',
-        message: 'Escudería eliminada'
-    });
+        res.json({
+            status: 'success',
+            message: 'Escudería eliminada'
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: error.message
+        });
+    }
 });
 
 module.exports = router;

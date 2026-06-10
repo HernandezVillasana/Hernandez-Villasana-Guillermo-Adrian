@@ -8,5 +8,5 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
-//la ex´portamos para usarla en otros archivos
+
 module.exports = pool;

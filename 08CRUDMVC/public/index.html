@@ -10,13 +10,10 @@
 <script src="JS/app.js" defer></script>
 <body>
  <header>
-    <h1>Sistema de compras </h1>
-    <p> Ejemplo de gestion de compras</p>
+    <h1>Formula 1</h1>
+    <p> Todo lo que debes de saber, Campeones desde 2010 y más</p>
     <nav class="tabs">
-        <button class="tabs active" onclick="cambiarSeccion('usuarios')">Usuarios</button>
-         <button class="tabs active" onclick="cambiarSeccion('productos')">Productos</button>
-          
-          <button class="tabs active" onclick="cambiarSeccion('compras')">Compras</button>
+       
        
  </header>
 
@@ -25,11 +22,23 @@
 <button onclick="cambiarSeccion('escuderias')">Escuderías</button>
 <div id="seccion-pilotos" class="seccion" style="display:none">
     <h2>Pilotos</h2>
-<select id="piloto-nombre"> 
+<input type="hidden" id="piloto-id">
+<select id="piloto-nombre">
+    <option value="">Nombre</option>
 </select>
-<select id="piloto-equipo"> </select>
-<select id="piloto-pais"></select>
-<input type="number" id="piloto-numero">
+
+<select id="piloto-equipo">
+    <option value="">Equipo</option>
+</select>
+
+<select id="piloto-pais">
+    <option value="">Pais</option>
+</select>
+
+<select id="piloto-numero">
+    <option value="">Número</option>
+</select>
+
 <button id="btn-guardar-piloto" type="button">Guardar</button>
  
     <div id="mensaje-error" style="color:red;"></div>
@@ -40,8 +49,8 @@
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Equipo</th>
-                <th>País</th>
-                <th>Número</th>
+                <th>Pais</th>
+                <th>Numero</th>
             </tr>
         </thead>
 
@@ -49,17 +58,29 @@
     </table>
 
 </div>
+
 <div id="seccion-campeones" class="seccion" style="display:none">
 
     <h2>Campeones</h2>
-    <input type="hidden" id="campeon-id">
+<input type="hidden" id="campeon-id">
 
-    <input type="number" id="campeon-anio" placeholder="Año">
-    <input type="text" id="campeon-piloto" placeholder="Piloto">
-    <input type="text" id="campeon-escuderia" placeholder="Escudería">
-    <input type="number" id="campeon-puntos" placeholder="Puntos">
+<select id="campeon-anio">
+    <option value="">Año</option>
+</select>
 
-    <button onclick="guardarCampeon()">Guardar</button>
+<select id="campeon-piloto">
+    <option value="">Piloto</option>
+</select>
+
+<select id="campeon-escuderia">
+    <option value="">Escuderia</option>
+</select>
+
+<select id="campeon-puntos">
+    <option value="">Puntos</option>
+</select>
+
+<button onclick="guardarCampeon()">Guardar</button>
 
     <table border="1">
         <thead>
@@ -67,8 +88,9 @@
                 <th>ID</th>
                 <th>Año</th>
                 <th>Piloto</th>
-                <th>Escudería</th>
+                <th>Escuderia</th>
                 <th>Puntos</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -76,22 +98,32 @@
     </table>
 
 </div>
+
 <div id="seccion-escuderias" class="seccion" style="display:none">
 
     <h2>Escuderías</h2>
-<input type="hidden" id="escuderia-id">
 
-<input type="text" id="escuderia-nombre" placeholder="Nombre">
+    <input type="hidden" id="escuderia-id">
 
-<input type="text" id="escuderia-pais" placeholder="País">
+<select id="escuderia-nombre">
+    <option value="">Nombre</option>
+</select>
 
-<input type="text" id="escuderia-motor" placeholder="Motor">
+<select id="escuderia-pais">
+    <option value="">País</option>
+</select>
 
-<input type="number" id="escuderia-titulos" placeholder="Títulos">
+<select id="escuderia-motor">
+    <option value="">Motor</option>
+</select>
 
-<button onclick="guardarEscuderia()">
-    Guardar
-</button>
+<select id="escuderia-titulos">
+    <option value="">Títulos</option>
+    
+</select>
+
+<button onclick="guardarEscuderia()">Guardar</button>
+
     <table border="1">
         <thead>
             <tr>
@@ -100,6 +132,7 @@
                 <th>País</th>
                 <th>Motor</th>
                 <th>Títulos</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -107,6 +140,8 @@
     </table>
 
 </div>
+
+
 <section class="info-api">
     
     <h3>Información de la API</h3>
