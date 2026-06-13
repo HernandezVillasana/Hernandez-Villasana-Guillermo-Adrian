@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 3 - Inversión</title>
+    <link rel="stylesheet" href="/Style.css">
+</head>
+<body>
+    <div class="container-main">
+        
+            <h1 >Ejercicio 3 - Inversión</h1>
+           <h3>Hernandez Villasana Guillermo Adrian 4IV8 - Materia: Nuevas tecnologías - Boleta 2025090231</h3>
+       
+
+        <div class="Ejercicio1">
+            <form method="post" id="formularioejer1" name="formularioejer1" action="">
+                <label for="">
+                    Formulario para calcular una inversion al x% de interes anual
+                </label>
+               
+                    <table class="table">
+                        <tr>
+                            <td>Introduce la cantidad que deceas invertir por 1 año:</td>
+                            <td><input type="text" name="cantidad" id="cantidadi" onkeypress="return validarn(event)"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" value="Calcular interes" name="enviar" onclick="interes()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Su saldo es de:</td>
+                            <td>
+                                <input type="text" name="sueldoi" id="sueldoi" readonly="redondly">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" value="Borrar Datos" name="delete" onclick="borrar()">
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+  
+
+       
+    </div>
+
+    <script src="/03Intereses/intereses.js"></script>
+    <p><a href="/Index.html">Volver al portafolio</a></p>
+</body>
+</html>

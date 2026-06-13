@@ -1,42 +1,63 @@
-*{
-    padding: 0;
-    margin: 0;
-    color: #BFAC8B;
-    text-align: center;
-}
-html, body{
-    background-color: #00272D;
+body {
+        font-family: Joan;
+        background: #0C7E7E;
+        margin: 20px;
+    }
+    h1 {
+        background: #00272D;
+        color: #BFAC8B;
+        padding: 10px;
+        Text-align: center;
+    }
+    h3 {
+        background: #00272D;
+        color: #BFAC8B;
+        padding: 10px;
+        Text-align: center;
+    }
+   div {
+        background: #BFAC8B;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px black;
+    }
+    input {
+        padding: 5px;
+        margin: 5px;
+    }
+    button {
+        padding: 8px;
+        background: #0C7E7E;
+        color: #BFAC8B;
+        border: none;
+        cursor: pointer;
+    }
+    h2{
+        color: #00272D;
+        text-align: center;
+    }
+    a {
+        color: #BFAC8B;
+        text-decoration: none;
+    }
+    ul {
+    list-style: none;
 }
 
-nav, section, footer, aside, article{
-    border: 4px solid;
-    margin: 1rem;
-    border-radius: 10px;
-    padding: 1rem;
+li {
+    margin: 14px 0;
 }
-article, aside{
-    width: 40%;
-    display: inline-flex;
-    height: 300px;
-}
-body{
-    font-family: Joan;
-    background: #0C7E7E;
-}
-img {
-    padding: 20px;
-    margin: 15px;
-    border-radius: 10px;
-    text-align: center;
-}
-h1 {
-    background-color: #00272D;
-    padding: 10px;
-    border-radius: 10px;
-}   
-div {
-    background-color: #00272D;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 10px;
+
+a {
+    display: block;
+    padding: 16px 22px;
+    ;
+    text-decoration: none;
+    font-family: 'Amaranth', sans-serif;
+    font-size: 18px;
+        background-color: #00272D;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+     transform: translateX(12px);
 }

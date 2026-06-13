@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUDMVC</title>
+</head>
+
+<link rel="stylesheet" href="CSS/style.css">
+<script src="JS/app.js" defer></script>
+<body>
+ <header>
+    <h1>Formula 1</h1>
+    <h1> Todo lo que debes de saber, Campeones desde 2010 y más</h1>
+     <h3>Hernandez Villasana Guillermo Adrian 4IV8 - Materia: Nuevas tecnologías - Boleta 2025090231</h3>
+     <nav class="menu">
+      
+    <nav class="tabs">
+       
+       
+    </nav>
+ </header>
+
+ <button onclick="cambiarSeccion('pilotos')">Pilotos</button>
+<button onclick="cambiarSeccion('campeones')">Campeones</button>
+<button onclick="cambiarSeccion('escuderias')">Escuderías</button>
+
+<div id="seccion-pilotos" class="seccion" style="display:none">
+    <h2>Pilotos</h2>
+<input type="hidden" id="piloto-id">
+<select id="piloto-nombre">
+    <option value="">Nombre</option>
+</select>
+
+<select id="piloto-equipo">
+    <option value="">Equipo</option>
+</select>
+
+<select id="piloto-pais">
+    <option value="">Pais</option>
+</select>
+
+<select id="piloto-numero">
+    <option value="">Número</option>
+</select>
+
+<button id="btn-guardar-piloto" type="button">Guardar</button>
+ 
+    <div id="mensaje-error" style="color:red;"></div>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Equipo</th>
+                <th>Pais</th>
+                <th>Numero</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody-pilotos"></tbody>
+    </table>
+
+</div>
+
+<div id="seccion-campeones" class="seccion" style="display:none">
+
+    <h2>Campeones</h2>
+<input type="hidden" id="campeon-id">
+
+<select id="campeon-anio">
+    <option value="">Año</option>
+</select>
+
+<select id="campeon-piloto">
+    <option value="">Piloto</option>
+</select>
+
+<select id="campeon-escuderia">
+    <option value="">Escuderia</option>
+</select>
+
+<select id="campeon-puntos">
+    <option value="">Puntos</option>
+</select>
+
+<button onclick="guardarCampeon()">Guardar</button>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Año</th>
+                <th>Piloto</th>
+                <th>Escuderia</th>
+                <th>Puntos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody-campeones"></tbody>
+    </table>
+
+</div>
+
+<div id="seccion-escuderias" class="seccion" style="display:none">
+
+    <h2>Escuderías</h2>
+
+    <input type="hidden" id="escuderia-id">
+
+<select id="escuderia-nombre">
+    <option value="">Nombre</option>
+</select>
+
+<select id="escuderia-pais">
+    <option value="">País</option>
+</select>
+
+<select id="escuderia-motor">
+    <option value="">Motor</option>
+</select>
+
+<select id="escuderia-titulos">
+    <option value="">Títulos</option>
+    
+</select>
+
+<button onclick="guardarEscuderia()">Guardar</button>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>País</th>
+                <th>Motor</th>
+                <th>Títulos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbody-escuderias"></tbody>
+    </table>
+
+</div>
+
+
+<section class="info-api">
+    
+    <h3>Información de la API</h3>
+    <div class="api-status"></div>
+    <span id="api-metodo" class="badge">-</span>
+     <span id="api-url" class="api-url">-</span>
+      <span id="api-codigo" class="badge badge-natural">-</span>
+</section>
+<div id="seccion-usuarios" class="seccion" style="display:none">
+    <section class="formulario-usuarios">  
+
+    <h3>Gestión de Usuarios</h3>
+        <form id="form-usuarios" novalidate>
+        <input type="hidden" id="usuario-id">
+        <div class="campo">  
+            <label for="usuario-nombre">Nombre:</label>
+            <input type="text" id="usuario-nombre" placeholder="Nombre" maxlength="100" required>
+           <span class="error-message" id="error-nombre"></span>
+         </div>
+         <div class="campo">  
+            <label for="usuario-email">Email:</label>
+            <input type="email" id="usuario-email" placeholder="Email" maxlength="100" required>
+           <span class="error-message" id="error-email"></span>
+         </div>
+         <div class="botones">  
+            <button type="submit" id="btn-guardar-usuario">Guardar</button>
+            <button type="button" id="btn-cancelar-usuario" class="btn-secundario" style="display: none;">Cancelar</button>
+         </div>
+        </form>
+        <section class="tabla-usuarios">
+            <h3>Lista de Usuarios <span id="contador-usuarios" class="badge badge-neutral"></span></h3>
+            <p id="error-usuarios" class="error-message">Cargando...</p>
+            <table id="table-usuarios" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-usuarios"></tbody>
+            </table>
+        </section>
+    </section>
+</div>
+ <a href = "/Index.html">Volver al portafolio</a>
+</body>
+</html>
