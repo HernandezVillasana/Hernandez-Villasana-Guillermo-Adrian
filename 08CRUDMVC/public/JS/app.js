@@ -22,7 +22,7 @@
             nombre.innerHTML = '<option value="">Selecciona un piloto</option>';
             equipo.innerHTML = '<option value="">Selecciona un equipo</option>';
             pais.innerHTML = '<option value="">Selecciona un pais</option>';
-s
+
             const equipos = [...new Set(res.data.map(p => p.equipo))];
             equipos.forEach(eq => {
                 equipo.innerHTML += `<option value="${stripAccents(eq)}">${stripAccents(eq)}</option>`;
@@ -32,7 +32,7 @@ s
             paises.forEach(p => {
                 pais.innerHTML += `<option value="${stripAccents(p)}">${stripAccents(p)}</option>`;
             });
-s
+
             const numeros = [...new Set(res.data.map(p => p.numero))];
             const numero = document.getElementById('piloto-numero');
             if (numero) {
@@ -310,7 +310,7 @@ s
             resEscuderias.data.forEach(e => {
                 selectEscuderia.innerHTML += `<option value="${stripAccents(e.nombre)}">${stripAccents(e.nombre)}</option>`;
             });
-s
+
             const anos = [...new Set(resCampeones.data.map(c => c.anio))];
             const puntos = [...new Set(resCampeones.data.map(c => c.puntos))];
 
