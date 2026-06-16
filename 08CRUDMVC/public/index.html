@@ -11,15 +11,20 @@
 <body>
  <header>
     <h1>Formula 1</h1>
-    <p> Todo lo que debes de saber, Campeones desde 2010 y más</p>
+    <h1> Todo lo que debes de saber, Campeones desde 2010 y más</h1>
+     <h3>Hernandez Villasana Guillermo Adrian 4IV8 - Materia: Nuevas tecnologías - Boleta 2025090231</h3>
+     <nav class="menu">
+      
     <nav class="tabs">
        
        
+    </nav>
  </header>
 
  <button onclick="cambiarSeccion('pilotos')">Pilotos</button>
 <button onclick="cambiarSeccion('campeones')">Campeones</button>
 <button onclick="cambiarSeccion('escuderias')">Escuderías</button>
+
 <div id="seccion-pilotos" class="seccion" style="display:none">
     <h2>Pilotos</h2>
 <input type="hidden" id="piloto-id">
@@ -150,7 +155,7 @@
      <span id="api-url" class="api-url">-</span>
       <span id="api-codigo" class="badge badge-natural">-</span>
 </section>
-<div id="seccion-usuarios" class="seccion">
+<div id="seccion-usuarios" class="seccion" style="display:none">
     <section class="formulario-usuarios">  
 
     <h3>Gestión de Usuarios</h3>
@@ -169,24 +174,25 @@
          <div class="botones">  
             <button type="submit" id="btn-guardar-usuario">Guardar</button>
             <button type="button" id="btn-cancelar-usuario" class="btn-secundario" style="display: none;">Cancelar</button>
-            <section class="tabla-usuarios">
-                <h3>Lista de Usuarios <span id="contador-usuarios" class="badge badge-neutral">  </span></h3>
-                <p id="error-usuarios" class="error-message">Cargando...</p>
-                <table id="table-usuarios" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-usuarios">
-                    </tbody>
-               
-
-            </section>
          </div>
+        </form>
+        <section class="tabla-usuarios">
+            <h3>Lista de Usuarios <span id="contador-usuarios" class="badge badge-neutral"></span></h3>
+            <p id="error-usuarios" class="error-message">Cargando...</p>
+            <table id="table-usuarios" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-usuarios"></tbody>
+            </table>
+        </section>
     </section>
-
 </div>
+ <a href="../../Index.html">Volver al portafolio</a>
+</body>
+</html>

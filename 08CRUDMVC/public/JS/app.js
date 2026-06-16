@@ -6,6 +6,129 @@
     const apiURL = document.getElementById('api-url');
     const apiCodigo = document.getElementById('api-codigo');
     const notificacionDIV = document.getElementById('notificacion');
+    const isLocalFile = location.protocol === 'file:';
+    const localDataKey = 'crudmvc-local-data';
+    const initialData = {
+        pilotos: [
+            { id: 1, nombre: 'Max Verstappen', equipo: 'Red Bull', pais: 'Países Bajos', numero: 1 },
+            { id: 2, nombre: 'Lewis Hamilton', equipo: 'Mercedes', pais: 'Reino Unido', numero: 44 },
+            { id: 3, nombre: 'Charles Leclerc', equipo: 'Ferrari', pais: 'Mónaco', numero: 16 }
+        ],
+        escuderias: [
+            { id: 1, nombre: 'Red Bull', pais: 'Austria', motor: 'Honda', titulos: 7 },
+            { id: 2, nombre: 'Mercedes', pais: 'Alemania', motor: 'Mercedes', titulos: 8 },
+            { id: 3, nombre: 'Ferrari', pais: 'Italia', motor: 'Ferrari', titulos: 16 }
+        ],
+        campeones: [
+            { id: 1, anio: 2023, piloto: 'Max Verstappen', escuderia: 'Red Bull', puntos: 454 },
+            { id: 2, anio: 2020, piloto: 'Lewis Hamilton', escuderia: 'Mercedes', puntos: 347 },
+            { id: 3, anio: 2022, piloto: 'Max Verstappen', escuderia: 'Red Bull', puntos: 454 }
+        ],
+        usuarios: [
+            { id: 1, nombre: 'Admin', email: 'admin@example.com' },
+            { id: 2, nombre: 'Invitado', email: 'invitado@example.com' }
+        ]
+    };
+
+    function loadLocalData() {
+        try {
+            const saved = localStorage.getItem(localDataKey);
+            if (!saved) {
+                localStorage.setItem(localDataKey, JSON.stringify(initialData));
+                return JSON.parse(JSON.stringify(initialData));
+            }
+            return JSON.parse(saved);
+        } catch (error) {
+            localStorage.setItem(localDataKey, JSON.stringify(initialData));
+            return JSON.parse(JSON.stringify(initialData));
+        }
+    }
+
+    function saveLocalData(data) {
+        localStorage.setItem(localDataKey, JSON.stringify(data));
+    }
+
+    function getCollectionFromUrl(url) {
+        const path = url.replace(/^\/+/, '').split('?')[0].split('/');
+        if (path[0] !== 'api') return null;
+        return {
+            resource: path[1],
+            id: path[2] ? Number(path[2]) : null
+        };
+    }
+
+    function clone(value) {
+        return JSON.parse(JSON.stringify(value));
+    }
+
+    const localData = loadLocalData();
+
+    async function localFetch(url, opciones = {}) {
+        const route = getCollectionFromUrl(url);
+        if (!route) {
+            return { status: 'error', message: 'Ruta no encontrada' };
+        }
+
+        const { resource, id } = route;
+        const method = (opciones.method || 'GET').toUpperCase();
+
+        if (resource === 'api' && !id) {
+            return {
+                status: 'success',
+                message: 'Bienvenido a la API local',
+                endpoints: {
+                    pilotos: 'GET/api/pilotos',
+                    campeones: 'GET/api/campeones',
+                    escuderias: 'GET/api/escuderias',
+                    usuarios: 'GET/api/usuarios'
+                }
+            };
+        }
+
+        const collection = localData[resource];
+        if (!collection) {
+            return { status: 'error', message: 'Ruta no encontrada' };
+        }
+
+        if (method === 'GET') {
+            if (id) {
+                const item = collection.find(item => item.id === id);
+                return item ? clone(item) : { status: 'error', message: 'Elemento no encontrado' };
+            }
+            return { status: 'success', data: clone(collection) };
+        }
+
+        const body = opciones.body ? JSON.parse(opciones.body) : {};
+
+        if (method === 'POST') {
+            const nextId = collection.length ? Math.max(...collection.map(item => item.id)) + 1 : 1;
+            const newItem = { id: nextId, ...body };
+            collection.push(newItem);
+            saveLocalData(localData);
+            return { status: 'success', message: 'Elemento creado', data: clone(newItem) };
+        }
+
+        if (method === 'PUT') {
+            if (!id) return { status: 'error', message: 'ID es requerido' };
+            const index = collection.findIndex(item => item.id === id);
+            if (index === -1) return { status: 'error', message: 'Elemento no encontrado' };
+            collection[index] = { ...collection[index], ...body };
+            saveLocalData(localData);
+            return { status: 'success', message: 'Elemento actualizado', data: clone(collection[index]) };
+        }
+
+        if (method === 'DELETE') {
+            if (!id) return { status: 'error', message: 'ID es requerido' };
+            const index = collection.findIndex(item => item.id === id);
+            if (index === -1) return { status: 'error', message: 'Elemento no encontrado' };
+            collection.splice(index, 1);
+            saveLocalData(localData);
+            return { status: 'success', message: 'Elemento eliminado' };
+        }
+
+        return { status: 'error', message: 'Método no soportado' };
+    }
+
     // Quitar acentos/diacríticos
     function stripAccents(str) {
         if (!str) return str;
@@ -164,25 +287,36 @@
         apiURL.textContent = url;
         apiCodigo.textContent = 'Cargando...';
         apiCodigo.className = 'badge badge-secondary';
+
+        if (isLocalFile && url.startsWith('/api')) {
+            const datos = await localFetch(url, opciones);
+            apiCodigo.textContent = '200';
+            apiCodigo.className = 'badge badge-success';
+            return datos;
+        }
+
         try {
             const response = await fetch(url, opciones);
             apiCodigo.textContent = `${response.status}`;
             apiCodigo.className = `badge badge-${response.ok ? 'badge-success' : 'badge-danger'}`;
-            
-        const datos = await response.json();
-        if (!response.ok) {
-            throw new Error(datos.message || 'Error en la solicitud');
+            const datos = await response.json();
+            if (!response.ok) {
+                throw new Error(datos.message || 'Error en la solicitud');
+            }
+            return datos;
+        } catch (error) {
+            if (url.startsWith('/api')) {
+                const datos = await localFetch(url, opciones);
+                apiCodigo.textContent = '200';
+                apiCodigo.className = 'badge badge-success';
+                return datos;
+            }
+            if (apiCodigo.textContent === 'Cargando...') {
+                apiCodigo.textContent = 'Error';
+                apiCodigo.className = 'badge badge-danger';
+            }
+            throw error;
         }
-        return datos;
-    }
-
-    catch (error) {
-        if ( apiCodigo.textContent === 'Cargando...') {
-            apiCodigo.textContent = 'Error';
-            apiCodigo.className = 'badge badge-danger';
-        }
-        throw error;
-    }
     }
     function mostrarError(msg) {
         document.getElementById("mensaje-error").textContent = msg;
@@ -205,7 +339,7 @@
 
     async function cargarUsuarios() {
         try {
-            const respuesta = await FetchAPI('/api/usuarios')
+            const respuesta = await FetchAPI('/api/usuarios');
 
             errorUsuarios.style.display = 'none';
             tbodyUsuarios.innerHTML = '';
@@ -214,6 +348,7 @@
                 errorUsuarios.textContent = 'No hay usuarios registrados';
                 errorUsuarios.style.display = 'block';
                 tableUsuarios.style.display = 'none';
+                contadorUsuarios.textContent = '0';
                 return;
             }
 
@@ -241,9 +376,78 @@
             console.error('Error al cargar usuarios:', error);
             errorUsuarios.textContent = 'Error al cargar usuarios';
             errorUsuarios.style.display = 'block';
+            tableUsuarios.style.display = 'none';
+            contadorUsuarios.textContent = '0';
         }
     }
-    function cambiarSeccion(seccion) {
+
+    async function guardarUsuario(event) {
+        if (event && event.preventDefault) {
+            event.preventDefault();
+        }
+
+        const id = inputUsuarioId.value;
+        const nombre = inputUsuarioNombre.value.trim();
+        const email = inputUsuarioEmail.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!nombre || !email || !emailRegex.test(email)) {
+            errorUsuarios.textContent = 'Nombre y email válidos son obligatorios';
+            errorUsuarios.style.display = 'block';
+            return;
+        }
+
+        const payload = { nombre, email };
+        const method = id ? 'PUT' : 'POST';
+        const url = id ? `/api/usuarios/${id}` : '/api/usuarios';
+
+        await FetchAPI(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        inputUsuarioId.value = '';
+        formUsuarios.reset();
+        btnCancelarUsuario.style.display = 'none';
+        await cargarUsuarios();
+    }
+
+    async function editarUsuario(id) {
+        try {
+            const respuesta = await FetchAPI('/api/usuarios');
+            const usuario = respuesta.data.find(u => u.id == id);
+            if (!usuario) return;
+
+            inputUsuarioId.value = usuario.id;
+            inputUsuarioNombre.value = usuario.nombre;
+            inputUsuarioEmail.value = usuario.email;
+            btnCancelarUsuario.style.display = 'inline-block';
+        } catch (error) {
+            console.error('Error al editar usuario:', error);
+        }
+    }
+
+    async function eliminarUsuario(id) {
+        const confirmacion = confirm('¿Seguro que quieres eliminar este usuario?');
+        if (!confirmacion) return;
+
+        try {
+            await FetchAPI(`/api/usuarios/${id}`, { method: 'DELETE' });
+            await cargarUsuarios();
+        } catch (error) {
+            console.error('Error al eliminar usuario:', error);
+        }
+    }
+
+    function cancelarUsuario() {
+        formUsuarios.reset();
+        inputUsuarioId.value = '';
+        btnCancelarUsuario.style.display = 'none';
+        errorUsuarios.style.display = 'none';
+    }
+
+    async function cambiarSeccion(seccion) {
         document.querySelectorAll('.seccion').forEach(s => {
             s.style.display = 'none';
         });
@@ -261,6 +465,9 @@
         if (seccion === 'escuderias') {
             cargarSelectsEscuderias();
             cargarEscuderias();
+        }
+        if (seccion === 'usuarios') {
+            await cargarUsuarios();
         }
     }
     async function cargarPilotos() {
@@ -815,17 +1022,29 @@
         btnGuardarPiloto.addEventListener("click", guardarPiloto);
     }
 
+    if (formUsuarios) {
+        formUsuarios.addEventListener('submit', guardarUsuario);
+    }
+    if (btnCancelarUsuario) {
+        btnCancelarUsuario.addEventListener('click', cancelarUsuario);
+    }
+
     // Ventana global para funciones
     window.guardarPiloto = guardarPiloto;
     window.guardarCampeon = guardarCampeon;
     window.guardarEscuderia = guardarEscuderia;
+    window.guardarUsuario = guardarUsuario;
     window.editarPiloto = editarPiloto;
     window.editarCampeon = editarCampeon;
     window.editarEscuderia = editarEscuderia;
+    window.editarUsuario = editarUsuario;
     window.eliminarPiloto = eliminarPiloto;
     window.eliminarCampeon = eliminarCampeon;
     window.eliminarEscuderia = eliminarEscuderia;
+    window.eliminarUsuario = eliminarUsuario;
+    window.cancelarUsuario = cancelarUsuario;
     window.cambiarSeccion = cambiarSeccion;
     window.cargarPilotos = cargarPilotos;
     window.cargarCampeones = cargarCampeones;
     window.cargarEscuderias = cargarEscuderias;
+    window.cargarUsuarios = cargarUsuarios;

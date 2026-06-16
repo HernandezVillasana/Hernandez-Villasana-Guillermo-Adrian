@@ -15,20 +15,64 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
-    line-height: 1.6;
-}
-
-/* ---- Header con pestañas ---- */
-header {
-    background: linear-gradient(135deg, #0f172a, #1e40af);
-    color: white;
-    padding: 1.5rem 1.5rem 0;
-    text-align: center;
+ h1 {
+        background: #00272D;
+        color: #BFAC8B;
+        padding: 10px;
+        Text-align: center;
+    }
+ body {
+        font-family: Joan;
+        background: #BFAC8B;
+        margin: 20px;
+    }
+    h4 {
+        background: #00272D;
+        color: #BFAC8B;
+        padding: 10px;
+    }
+    h3 {
+        background: #00272D;
+        color: #BFAC8B;
+        padding: 10px;
+    }
+    .box {
+        background: #BFAC8B;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 5px black;
+    }
+    input {
+        padding: 5px;
+        margin: 5px;
+    }
+    button {
+        padding: 8px;
+        background: #0C7E7E;
+        color: #BFAC8B;
+        border: none;
+        cursor: pointer;
+    }
+    .error {
+        color: #134647;
+        font-size: 12px;
+    }
+    .result {
+        margin-top: 10px;
+        font-weight: bold;
+    }
+    a {
+    display: block;
+    padding: 16px 22px;
+    ;
+    text-decoration: none;
+    font-family: 'Amaranth', sans-serif;
+    font-size: 18px;
+        background-color: #0C7E7E;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    color: #BFAC8B;
 }
 
 header h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }

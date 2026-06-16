@@ -1,14 +1,25 @@
-/*Código armado por La Foca Loca S.A. No modificar*/
+ /* por La Foca Loca S.A. No modificar*/
 
 body {
     font-family: Arial, sans-serif;
     width: 940px;
     margin: 2% auto;
     min-height: 100%;
-    background-image: url(../images/adventure.jpg);
+    background-image: url(/06Rompecabezas/css/images/adventure.jpg);
     box-sizing: border-box;
 }
-
+h1 {
+        background: #00272D;
+        color: #BFAC8B;
+        padding: 10px;
+        Text-align: center;
+    }
+    h3 {
+        background: #00272D;
+        color: #BFAC8B;
+        padding: 10px;
+        Text-align: center;
+    }
 ul {
     padding-left: 0;
     list-style: none;
@@ -28,7 +39,7 @@ li::before {
     margin: 0% auto;
     text-align: center;
     font-size: 27px;
-    color: #E84A5F;
+    color: #BFAC8B;
 }
 
 .col-40,
